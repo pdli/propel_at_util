@@ -5,7 +5,7 @@
 'use strict'
 
 const WebDriverCommands = require('./WebdriverCommands');
-const config = require('../config.json');
+const config = require('../../config.json');
 const path = require('path');
 const By = require('selenium-webdriver').By;
 const until = require('selenium-webdriver').until;
@@ -31,6 +31,19 @@ function dealWithInvalidLoginPropel( driver, urlName ) {
     });
 }
 
+module.exports.removeSupplierPageShadowPanel = function( driver, timeout) {
+
+    var cgBusyLocator = By.className('cg-busy-default-text ng-binding ng-scope');
+    driver.wait(until.elementLocated( cgBusyLocator ), timeout);
+    driver.wait(until.elementIsNotVisible( driver.findElement( cgBusyLocator)), timeout);
+}
+
+module.exports.getPropelUrl = function ( driver, urlLink ) {
+
+    driver.get( urlLink );
+    driver.navigate().refresh();
+}
+
 module.exports.takeScreenShot = function (driver, name) {
 
     driver.getCurrentUrl().then( function( str ){
@@ -38,7 +51,7 @@ module.exports.takeScreenShot = function (driver, name) {
     });
 
     driver.takeScreenshot().then( function(image, err){
-        var fullName = path.join(__dirname, "../images/", name+'.png');
+        var fullName = path.join(__dirname, "../../images/", name+'.png');
         require('fs').writeFile( fullName, image, 'base64', function(err) {
             if( typeof err !== 'undefined' ) {
                 log.error(err);
