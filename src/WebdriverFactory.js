@@ -29,8 +29,8 @@ var phantomJSCapabilities = webdriver.Capabilities.phantomjs();
 phantomJSCapabilities.set("phantomjs.binary.path", require('phantomjs-prebuilt').path);
 
 //phantomJS with Class B certificate
-const crtFile = path.resolve(__dirname, '../cert/cert.pem');
-const keyFile = path.resolve(__dirname, '../cert/key.pem');
+const crtFile = path.resolve(__dirname, '../../cert/cert.pem');
+const keyFile = path.resolve(__dirname, '../../cert/key.pem');
 var phantomJSWithCertCapabilities = webdriver.Capabilities.phantomjs();
 phantomJSWithCertCapabilities.set("phantomjs.binary.path", require('phantomjs-prebuilt').path);
 phantomJSWithCertCapabilities.set(
