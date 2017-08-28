@@ -80,7 +80,7 @@ function goToLogInPage(driver, server, urlName) {
     });
 }
 
-module.exports.logInPropelWithoutConsumer = function(driver, server, urlName, account, password) {
+module.exports.logInPropel = function(driver, server, urlName, account, password) {
 
     var timeout = config.propelElementTimeout;
 
@@ -120,7 +120,7 @@ module.exports.logInPropelWithoutConsumer = function(driver, server, urlName, ac
     });
 }
 
-module.exports.logInPropel = function (driver, server, urlName, account, password) {
+module.exports.logInPropelWithoutConsumerCheck = function (driver, server, urlName, account, password) {
 
     var timeout = config.propelElementTimeout;
 
