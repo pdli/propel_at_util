@@ -21,6 +21,7 @@ function dealWithInvalidLoginPropel( driver, urlName ) {
 
         if( url.includes( subStr )) {
 
+            log.info(" --> Retry to log in Propel again: " + urlName);
             var loginLocator = By.id('submit');
             WebDriverCommands.clickButton( driver, loginLocator, config.propelElementTimeout);
 
@@ -62,8 +63,6 @@ module.exports.takeScreenShot = function (driver, name) {
 
 function goToLogInPage(driver, server, urlName) {
 
-    var timeout = config.propelElementTimeout;
-
     var validTimeout = config.propelValidLoadingTime;
 
     var propelUrl = server + ':9000/org/' + urlName;
@@ -74,11 +73,16 @@ function goToLogInPage(driver, server, urlName) {
 
     return driver.wait(until.urlContains("tenant=CONSUMER"), validTimeout).then(function () {
 
+        log.info(" --> Oops, go to CONSUMER tenant, it will be replaced." + urlName);
         goToLogInPage( driver, server, urlName);
+    }, function () {
+        //logIn URL is correct.
     });
 }
 
 module.exports.logInPropelWithoutConsumer = function(driver, server, urlName, account, password) {
+
+    var timeout = config.propelElementTimeout;
 
     var validTimeout = config.propelValidLoadingTime;
 
@@ -96,7 +100,7 @@ module.exports.logInPropelWithoutConsumer = function(driver, server, urlName, ac
         var loginLocator = By.id('submit');
         WebDriverCommands.clickButton( driver, loginLocator, timeout);
 
-        var invalidLocator = By.xpath('//span[text()="Invalid Username or Password"]');
+        var invalidLocator = By.xpath('//span[contains(text(),"Invalid Username")]');
         driver.wait(until.elementLocated( invalidLocator), validTimeout).then( function () {
 
             dealWithInvalidLoginPropel( driver, urlName);
@@ -108,6 +112,9 @@ module.exports.logInPropelWithoutConsumer = function(driver, server, urlName, ac
         driver.wait(until.urlContains('dashboard'), timeout).then( function(){
 
             log.debug(" => Login Propel Successfully.");
+        }, function() {
+
+            throw new Error("***** ERROR: LogIn Propel Failed. Please check the Account/Password/OTP *****");
         });
 
     });
