@@ -73,7 +73,7 @@ function goToLogInPage(driver, server, urlName) {
 
     return driver.wait(until.urlContains("tenant=CONSUMER"), validTimeout).then(function () {
 
-        log.info(" --> Oops, go to CONSUMER tenant, it will be replaced." + urlName);
+        log.info(" --> Oops, go to CONSUMER tenant. It will be replaced by : " + urlName);
         goToLogInPage( driver, server, urlName);
     }, function () {
         //logIn URL is correct.
@@ -111,10 +111,10 @@ module.exports.logInPropelWithoutConsumer = function(driver, server, urlName, ac
         //Wait for MainPage
         driver.wait(until.urlContains('dashboard'), timeout).then( function(){
 
-            log.debug(" => Login Propel Successfully.");
+            log.debug(" => Login Propel Successfully: " + urlName);
         }, function() {
 
-            throw new Error("***** ERROR: LogIn Propel Failed. Please check the Account/Password/OTP *****");
+            throw new Error("***** ERROR: LogIn Propel " + urlName + "Failed. Please check the Account/Password/OTP *****");
         });
 
     });
