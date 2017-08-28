@@ -76,7 +76,7 @@ function goToLogInPage(driver, server, urlName) {
         log.info(" --> Oops, go to CONSUMER tenant. It will be replaced by : " + urlName);
         goToLogInPage( driver, server, urlName);
     }, function () {
-        //logIn URL is correct.
+        // URL of Propel Login is correct.
     });
 }
 
