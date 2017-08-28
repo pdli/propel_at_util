@@ -60,6 +60,59 @@ module.exports.takeScreenShot = function (driver, name) {
     });
 }
 
+function goToLogInPage(driver, server, urlName) {
+
+    var timeout = config.propelElementTimeout;
+
+    var validTimeout = config.propelValidLoadingTime;
+
+    var propelUrl = server + ':9000/org/' + urlName;
+
+    //driver.manage().deleteAllCookies();
+
+    driver.get( propelUrl );
+
+    return driver.wait(until.urlContains("tenant=CONSUMER"), validTimeout).then(function () {
+
+        goToLogInPage( driver, server, urlName);
+    });
+}
+
+module.exports.logInPropelWithoutConsumer = function(driver, server, urlName, account, password) {
+
+    var validTimeout = config.propelValidLoadingTime;
+
+    var promise = goToLogInPage( driver, server, urlName);
+
+    return promise.then( function () {
+
+        //Input
+        var userLocator = By.id('username');
+        WebDriverCommands.sendKeysToInputElement( driver, userLocator, account, timeout);
+
+        var pwdLocator = By.id('password');
+        WebDriverCommands.sendKeysToInputElement( driver, pwdLocator, password, timeout);
+
+        var loginLocator = By.id('submit');
+        WebDriverCommands.clickButton( driver, loginLocator, timeout);
+
+        var invalidLocator = By.xpath('//span[text()="Invalid Username or Password"]');
+        driver.wait(until.elementLocated( invalidLocator), validTimeout).then( function () {
+
+            dealWithInvalidLoginPropel( driver, urlName);
+        }, function () {
+            //
+        });
+
+        //Wait for MainPage
+        driver.wait(until.urlContains('dashboard'), timeout).then( function(){
+
+            log.debug(" => Login Propel Successfully.");
+        });
+
+    });
+}
+
 module.exports.logInPropel = function (driver, server, urlName, account, password) {
 
     var timeout = config.propelElementTimeout;
@@ -68,7 +121,7 @@ module.exports.logInPropel = function (driver, server, urlName, account, passwor
 
     var propelUrl = server + ':9000/org/' + urlName;
 
-    driver.manage().deleteAllCookies();
+    //driver.manage().deleteAllCookies();
 
     var promise = driver.get( propelUrl );
 
