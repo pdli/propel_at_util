@@ -21,7 +21,7 @@ function dealWithInvalidLoginPropel( driver, urlName ) {
 
         if( url.includes( subStr )) {
 
-            log.info(" --> Retry to log in Propel again: " + urlName);
+            log.info(" --> Retry to Log in Propel again: " + urlName);
             var loginLocator = By.id('submit');
             WebDriverCommands.clickButton( driver, loginLocator, config.propelElementTimeout);
 
@@ -48,7 +48,7 @@ module.exports.getPropelUrl = function ( driver, urlLink ) {
 module.exports.takeScreenShot = function (driver, name) {
 
     driver.getCurrentUrl().then( function( str ){
-        log.error(" => current new url is failed: " + str);
+        log.error(" => Failures found in current URL: " + str);
     });
 
     driver.takeScreenshot().then( function(image, err){
@@ -73,7 +73,7 @@ function goToLogInPage(driver, server, urlName) {
 
     return driver.wait(until.urlContains("tenant=CONSUMER"), validTimeout).then(function () {
 
-        log.info(" --> Oops, go to CONSUMER tenant. It will be replaced by : " + urlName);
+        log.info("--> Oops, go to CONSUMER tenant. It will be replaced by tenant: " + urlName);
         goToLogInPage( driver, server, urlName);
     }, function () {
         // URL of Propel Login is correct.
@@ -111,7 +111,7 @@ module.exports.logInPropel = function(driver, server, urlName, account, password
         //Wait for MainPage
         driver.wait(until.urlContains('dashboard'), timeout).then( function(){
 
-            log.debug(" => Login Propel Successfully: " + urlName);
+            log.debug(" => Login Propel Successfully with Account: " + urlName);
         }, function() {
 
             throw new Error("***** ERROR: LogIn Propel " + urlName + "Failed. Please check the Account/Password/OTP *****");
@@ -157,7 +157,7 @@ module.exports.logInPropelWithoutConsumerCheck = function (driver, server, urlNa
         //Wait for MainPage
         driver.wait(until.urlContains('dashboard'), timeout).then( function(){
 
-            log.debug(" => Login Propel Successfully.");
+            log.debug(" => Login Propel Successfully with Account: " + urlName);
         });
     });
 }
