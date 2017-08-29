@@ -59,3 +59,8 @@ module.exports.waitElementStaleness = function (driver, locator, timeout){
         }
     });
 }
+
+module.exports.waitElementLocated = function (driver, locator, timeout) {
+
+    driver.wait(until.elementLocated(locator), timeout);
+}
