@@ -21,7 +21,7 @@ function dealWithInvalidLoginPropel( driver, urlName ) {
 
         if( url.includes( subStr )) {
 
-            log.info(" --> Retry to Log in Propel again with Tenant: " + urlName);
+            log.info(" --> Retry to Log in Propel with Tenant: " + urlName);
             var loginLocator = By.id('submit');
             WebDriverCommands.clickButton( driver, loginLocator, config.propelElementTimeout);
 
@@ -73,7 +73,7 @@ function goToLogInPage(driver, server, urlName) {
 
     return driver.wait(until.urlContains("tenant=CONSUMER"), validTimeout).then(function () {
 
-        log.info("--> Oops, go to CONSUMER tenant. It will be replaced by Tenant: " + urlName);
+        log.info(" --> Oops, go to CONSUMER tenant. It will be replaced by Tenant: " + urlName);
         goToLogInPage( driver, server, urlName);
     }, function () {
         // URL of Propel Login is correct.
@@ -109,12 +109,12 @@ module.exports.logInPropel = function(driver, server, urlName, account, password
         });
 
         //Wait for MainPage
-        driver.wait(until.urlContains('dashboard'), timeout).then( function(){
+        driver.wait(until.urlContains('dashboard'), timeout - validTimeout).then( function(){
 
             log.debug(" => Login Propel Successfully with Tenant: " + urlName);
         }, function() {
 
-            throw new Error("***** ERROR: LogIn Propel " + urlName + "Failed. Please check the Account/Password/OTP *****");
+            throw new Error("***** ERROR: LogIn Propel " + urlName + " Failed. Please check the Account/Password/OTP. *****");
         });
 
     });
