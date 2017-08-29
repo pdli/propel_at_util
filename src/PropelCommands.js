@@ -61,7 +61,7 @@ module.exports.takeScreenShot = function (driver, name) {
     });
 }
 
-module.exports.tearDown = function ( driver, webPromise ) {
+module.exports.tearDown = function( driver, webPromise ) {
 
     driver.quit();
     webPromise.cancel();
