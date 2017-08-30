@@ -41,6 +41,13 @@ module.exports.clickButton = function (driver, locator, timeout) {
     driver.findElement(locator).click();
 }
 
+module.exports.clickInput = function (driver, locator, timeout) {
+
+   driver.wait(until.elementLocated(locator), timeout);
+   driver.wait(until.elementIsEnabled(driver.findElement(locator)), timeout);
+   driver.findElement(locator).click();
+}
+
 module.exports.waitElementAvailable = function (driver, locator, timeout) {
 
     driver.wait(until.elementLocated(locator), timeout);
