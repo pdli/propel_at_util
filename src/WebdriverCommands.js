@@ -38,7 +38,7 @@ module.exports.clickButton = function (driver, locator, timeout) {
     driver.wait(until.elementLocated(locator), timeout);
     driver.wait(until.elementIsVisible(driver.findElement(locator)), timeout);
     driver.wait(until.elementIsEnabled(driver.findElement(locator)), timeout);
-    driver.findElement(locator).click();
+    return driver.findElement(locator).click();
 }
 
 module.exports.clickInput = function (driver, locator, timeout) {
@@ -52,13 +52,13 @@ module.exports.waitElementAvailable = function (driver, locator, timeout) {
 
     driver.wait(until.elementLocated(locator), timeout);
     driver.wait(until.elementIsVisible(driver.findElement(locator)), timeout);
-    driver.wait(until.elementIsEnabled(driver.findElement(locator)), timeout);
+    return driver.wait(until.elementIsEnabled(driver.findElement(locator)), timeout);
 }
 
 module.exports.waitElementStaleness = function (driver, locator, timeout){
 
     //in case the element staleness ahead
-    driver.findElements( locator ).then( function( elements) {
+    return driver.findElements( locator ).then( function( elements) {
 
         if( elements.length > 0) {
 
@@ -69,5 +69,5 @@ module.exports.waitElementStaleness = function (driver, locator, timeout){
 
 module.exports.waitElementLocated = function (driver, locator, timeout) {
 
-    driver.wait(until.elementLocated(locator), timeout);
+    return driver.wait(until.elementLocated(locator), timeout);
 }
