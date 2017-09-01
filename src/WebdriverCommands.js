@@ -55,6 +55,12 @@ module.exports.waitElementAvailable = function (driver, locator, timeout) {
     return driver.wait(until.elementIsEnabled(driver.findElement(locator)), timeout);
 }
 
+module.exports.waitElementEnabled = function (driver, locator, timeout) {
+
+    driver.wait(until.elementLocated(locator), timeout);
+    return driver.wait(until.elementIsEnabled(driver.findElement(locator)), timeout);
+}
+
 module.exports.waitElementStaleness = function (driver, locator, timeout){
 
     //in case the element staleness ahead
