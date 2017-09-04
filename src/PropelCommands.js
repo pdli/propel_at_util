@@ -56,7 +56,10 @@ module.exports.takeScreenShot = function (driver, name) {
     });
 
     driver.takeScreenshot().then( function(image, err){
-        var fullName = path.join(__dirname, "../../images/", name+'.png');
+
+        var date = new Date();
+        var str = '0'+ (date.getMonth() +1 ).toString() + '0' + date.getDate().toString() + '_' + date.getHours().toString() + date.getMinutes().toString();
+        var fullName = path.join(__dirname, "../../images/", name+ '_' + str + '.png');
         require('fs').writeFile( fullName, image, 'base64', function(err) {
             if( typeof err !== 'undefined' ) {
                 log.error(err);
