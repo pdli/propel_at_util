@@ -52,7 +52,7 @@ module.exports.getPropelUrl = function ( driver, urlLink ) {
 module.exports.takeScreenShot = function (driver, name) {
 
     driver.getCurrentUrl().then( function( str ){
-        log.error(" => Failures found in current URL: " + str);
+        log.debug(" => The current URL: " + str);
     });
 
     driver.takeScreenshot().then( function(image, err){
@@ -62,7 +62,7 @@ module.exports.takeScreenShot = function (driver, name) {
         var fullName = path.join(__dirname, "../../images/", name+ '_' + str + '.png');
         require('fs').writeFile( fullName, image, 'base64', function(err) {
             if( typeof err !== 'undefined' ) {
-                log.error(err);
+                log.info(err);
             }
         });
     });
