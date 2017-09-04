@@ -5,7 +5,7 @@
 'use strict'
 
 const WebDriverCommands = require('./WebdriverCommands');
-const config = require('../../config.json');
+const config = require('../../config/config.json');
 const path = require('path');
 const By = require('selenium-webdriver').By;
 const until = require('selenium-webdriver').until;
