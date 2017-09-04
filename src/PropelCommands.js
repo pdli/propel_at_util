@@ -10,7 +10,11 @@ const path = require('path');
 const By = require('selenium-webdriver').By;
 const until = require('selenium-webdriver').until;
 const WebElementPromise = require('selenium-webdriver').WebElementPromise;
-const log = require('loglevel');
+
+//Replace logLevel with log4js
+const log4js = require('log4js');
+log4js.configure("./config/log4js.json");
+const log = log4js.getLogger();
 
 function dealWithInvalidLoginPropel( driver, urlName ) {
 
