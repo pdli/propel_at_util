@@ -175,3 +175,10 @@ module.exports.logInPropelWithoutConsumerCheck = function (driver, server, urlNa
         });
     });
 }
+
+module.exports.tearDown = function tearDown( driver, promise ){
+
+    driver.quit();
+
+    promise.cancel();
+}
