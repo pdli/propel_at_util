@@ -176,7 +176,18 @@ module.exports.logInPropelWithoutConsumerCheck = function (driver, server, urlNa
     });
 }
 
-module.exports.tearDown = function tearDown( driver, promise ){
+//This function is NOT common, is still under test
+module.exports.waitPageLoading = function ( driver, timeout ) {
+
+    //wait for page loading
+    var progressLocator = By.id('loading-bar-spinner');
+    WebDriverCommands.waitElementStaleness( driver, progressLocator, timeout);
+
+    var loadingBarLocator = By.id('loading-bar');
+    WebDriverCommands.waitElementStaleness( driver, loadingBarLocator, timeout);
+}
+
+module.exports.tearDown = function ( driver, promise ){
 
     driver.quit();
 
