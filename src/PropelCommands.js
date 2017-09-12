@@ -187,6 +187,44 @@ module.exports.waitPageLoading = function ( driver, timeout ) {
     WebDriverCommands.waitElementStaleness( driver, loadingBarLocator, timeout);
 }
 
+module.exports.markProcessAsCompleted = function (tenantID ) {
+
+    var file = path.resolve(__dirname, '../../file/resumeRun.json');
+
+    var json = {};
+
+    require('selenium-webdriver/io').read( file )
+        .then( function ( buffer ) {
+
+            json = JSON.parse( buffer );
+
+            if( tenantID !== json.tenantID || json.tenantID === undefined || json.resumeStep === undefined ){
+
+                json.tenantID = tenantID;
+                json.resumeStep = 1;
+            } else {
+
+                json.tenantID = tenantID;
+                json.resumeStep = json.resumeStep + 1;
+                console.log(" ====> New step completed: " + json.resumeStep );
+            }
+        })
+        .then( function () {
+
+            require('selenium-webdriver/io').write(file, JSON.stringify( json ));
+        });
+}
+
+module.exports.clearProcessMark = function () {
+
+    var file = path.resolve(__dirname, '../../file/resumeRun.json');
+
+    var json = {};
+    json.tenantID = "";
+    json.resumeStep = 0;
+    require('selenium-webdriver/io').write(file, JSON.stringify( json ));
+}
+
 module.exports.tearDown = function ( driver, promise ){
 
     driver.quit();
