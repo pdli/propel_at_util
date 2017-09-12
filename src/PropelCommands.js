@@ -187,6 +187,47 @@ module.exports.waitPageLoading = function ( driver, timeout ) {
     WebDriverCommands.waitElementStaleness( driver, loadingBarLocator, timeout);
 }
 
+module.exports.markCfgCatalogProcessAsCompleted = function (tenantID ) {
+
+    var file = path.resolve(__dirname, '../../file/resumeRun.json');
+
+    var json = {};
+
+    require('selenium-webdriver/io').read( file )
+        .then( function ( buffer ) {
+
+            json = JSON.parse( buffer );
+
+            if( tenantID !== json.tenantID || json.tenantID === undefined || json.resumeStep === undefined ){
+
+                json.tenantID = tenantID;
+                json.resumeStep = 1;
+            } else {
+
+                json.tenantID = tenantID;
+                json.resumeStep = json.resumeStep + 1;
+            }
+        })
+        .then( function () {
+
+            require('selenium-webdriver/io').write(file, JSON.stringify( json ));
+        });
+}
+
+module.exports.clearCfgCatalogProcessMark = function () {
+
+    var file = path.resolve(__dirname, '../../file/resumeRun.json');
+
+    var json = {};
+    json.tenantID = "";
+    json.resumeStep = 0;
+    require('selenium-webdriver/io').write(file, JSON.stringify( json ))
+        .then( function () {
+
+            log.info('Clear process mark for configCatalog. Every step of configCatalog will be re-run if needed...');
+        });
+}
+
 module.exports.tearDown = function ( driver, promise ){
 
     driver.quit();
