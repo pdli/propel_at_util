@@ -52,7 +52,7 @@ module.exports.getPropelUrl = function ( driver, urlLink ) {
 module.exports.takeScreenShot = function (driver, name) {
 
     driver.getCurrentUrl().then( function( str ){
-        log.debug(" => The current URL: " + str);
+        log.info(" => The current URL: " + str);
     });
 
     driver.takeScreenshot().then( function(image, err){
