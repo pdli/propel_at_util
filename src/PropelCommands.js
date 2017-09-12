@@ -128,7 +128,18 @@ module.exports.logInPropel = function(driver, server, urlName, account, password
             log.debug(" => Login Propel Successfully with Tenant: " + urlName);
         }, function() {
 
-            throw new Error("***** ERROR: LogIn Propel " + urlName + " Failed. Please check the Account/Password/OTP. *****");
+            var webPageCheckLocator = By.linkText('RETURN TO HOME');
+            driver.findElements( webPageCheckLocator ).then( function ( elements ) {
+
+                if( elements.length >0 ) {
+
+                    throw new Error("***** ERROR: LogIn Propel " + urlName + " Failed. Propel Service Unavailable, please re-run it. *****");
+                } else {
+
+                    throw new Error("***** ERROR: LogIn Propel " + urlName + " Failed. Maybe you need to check the Account/Password/OTP. *****");
+                }
+
+            });
         });
 
     });
