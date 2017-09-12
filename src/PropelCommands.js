@@ -224,7 +224,7 @@ module.exports.clearCfgCatalogProcessMark = function () {
     require('selenium-webdriver/io').write(file, JSON.stringify( json ))
         .then( function () {
 
-            log.info('Clear process mark for configCatalog. Every step of configCatalog will be re-run if needed...');
+            log.info('==> Clear process mark for configCatalog. Every step of configCatalog will be re-run if needed...');
         });
 }
 
