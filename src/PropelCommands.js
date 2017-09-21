@@ -11,6 +11,7 @@ const By = require('selenium-webdriver').By;
 const until = require('selenium-webdriver').until;
 const WebElementPromise = require('selenium-webdriver').WebElementPromise;
 
+const TIMEOUT = config.propelElementTimeout;
 //Replace logLevel with log4js
 const log4js = require('log4js');
 log4js.configure("./config/log4js.json");
@@ -43,10 +44,12 @@ module.exports.removeSupplierPageShadowPanel = function( driver, timeout) {
     driver.wait(until.elementIsNotVisible( driver.findElement( cgBusyLocator)), timeout);
 }
 
-module.exports.getPropelUrl = function ( driver, urlLink ) {
+module.exports.getPropelUrl = function ( driver, urlLink, timeout = TIMEOUT ) {
 
     driver.get( urlLink );
     driver.navigate().refresh();
+
+    waitPageLoading( driver, timeout );
 }
 
 module.exports.takeScreenShot = function (driver, name) {
@@ -188,7 +191,7 @@ module.exports.logInPropelWithoutConsumerCheck = function (driver, server, urlNa
 }
 
 //This function is NOT common, is still under test
-module.exports.waitPageLoading = function ( driver, timeout ) {
+module.exports.waitPageLoading = function waitPageLoading( driver, timeout ) {
 
     //wait for page loading
     var progressLocator = By.id('loading-bar-spinner');
