@@ -49,7 +49,7 @@ module.exports.getPropelUrl = function ( driver, urlLink, timeout = TIMEOUT ) {
     driver.get( urlLink );
     driver.navigate().refresh();
 
-    waitPageLoading( driver, timeout );
+    this.waitPageLoading( driver, timeout );
 }
 
 module.exports.takeScreenShot = function (driver, name) {
@@ -191,7 +191,7 @@ module.exports.logInPropelWithoutConsumerCheck = function (driver, server, urlNa
 }
 
 //This function is NOT common, is still under test
-module.exports.waitPageLoading = function waitPageLoading( driver, timeout ) {
+module.exports.waitPageLoading = function ( driver, timeout ) {
 
     //wait for page loading
     var progressLocator = By.id('loading-bar-spinner');
