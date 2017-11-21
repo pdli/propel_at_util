@@ -201,6 +201,18 @@ module.exports.waitPageLoading = function ( driver, timeout ) {
     WebDriverCommands.waitElementStaleness( driver, loadingBarLocator, timeout);
 }
 
+module.exports.select_default_language = function( driver ) {
+
+    var langLocator = By.xpath('//h3[text()="Select Default Language"]');
+    driver.findElements( langLocator ).then( function ( elements ) {
+
+        if( elements.length >0 ){
+
+            WebDriverCommands.clickButton( driver, By.id('submit'), TIMEOUT);
+        }
+    });
+}
+
 module.exports.markCfgCatalogProcessAsCompleted = function (tenantID ) {
 
     var file = path.resolve(__dirname, '../../file/resumeRun.json');
