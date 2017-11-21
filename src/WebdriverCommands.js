@@ -77,3 +77,18 @@ module.exports.waitElementLocated = function (driver, locator, timeout) {
 
     return driver.wait(until.elementLocated(locator), timeout);
 }
+
+module.exports.removeShadowPanel = function (driver, locator, timeout) {
+
+    driver.wait(until.elementLocated( locator ), timeout);
+
+    return driver.executeScript( hideElementByCss, driver.findElements( locator ));
+}
+
+var hideElementByCss = function ( elements ) {
+
+    for (var i=0; i< elements.length; i++){
+
+        elements[i].style = "display: none;";
+    }
+}
