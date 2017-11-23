@@ -254,7 +254,7 @@ module.exports.clearCfgCatalogProcessMark = function () {
         });
 }
 
-module.exports.waitLoadingPanel = function ( driver, timeout) {
+module.exports.waitLoadingPanelDisappear = function ( driver, timeout) {
 
     var cgBusyLocator = By.className('cg-busy-default-text ng-binding ng-scope');
     driver.wait(until.elementLocated( cgBusyLocator ), timeout);
