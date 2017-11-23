@@ -247,7 +247,7 @@ module.exports.clearCfgCatalogProcessMark = function () {
     var json = {};
     json.tenantID = "";
     json.resumeStep = 0;
-    require('selenium-webdriver/io').write(file, JSON.stringify( json ))
+    return require('selenium-webdriver/io').write(file, JSON.stringify( json ))
         .then( function () {
 
             log.info('==> Clear process mark for configCatalog. Every step of configCatalog will be re-run if needed...');
