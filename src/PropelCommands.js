@@ -213,20 +213,6 @@ module.exports.select_default_language = function( driver ) {
     });
 }
 
-module.exports.clearCfgCatalogProcessMark = function () {
-
-    var file = path.resolve(__dirname, '../../file/resumeRun.json');
-
-    var json = {};
-    json.tenantID = "";
-    json.resumeStep = 0;
-    return require('selenium-webdriver/io').write(file, JSON.stringify( json ))
-        .then( function () {
-
-            log.info('==> Clear process mark for configCatalog. Every step of configCatalog will be re-run if needed...');
-        });
-}
-
 module.exports.waitLoadingPanelDisappear = function ( driver, timeout) {
 
     var cgBusyLocator = By.className('cg-busy-default-text ng-binding ng-scope');
