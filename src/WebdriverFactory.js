@@ -21,7 +21,7 @@ chromeCapabilities.set(
 const chromeHeadlessCapabilities = webdriver.Capabilities.chrome();
 chromeHeadlessCapabilities.set(
         'chromeOptions', {
-            'args': ['--no-sandbox','--headless','--disable-gpu', '--proxy-server=web-proxy.houston.hpecorp.net:8080', '--log-level=3']
+            'args': ['--no-sandbox','--headless','--disable-gpu','--proxy-server=web-proxy.houston.hpecorp.net:8080','--log-level=3','--enable-logging','--v=1']
         });
 
 //phantomJS
